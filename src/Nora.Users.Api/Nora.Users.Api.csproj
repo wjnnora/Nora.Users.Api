@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>    
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>    
+    <PackageReference Include="Scrutor" Version="6.0.1" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Nora.Users.Domain.Command\Nora.Users.Domain.Command.csproj" />
+    <ProjectReference Include="..\Nora.Users.Domain.Query\Nora.Users.Domain.Query.csproj" />
+    <ProjectReference Include="..\Nora.Users.Domain\Nora.Users.Domain.csproj" />
+    <ProjectReference Include="..\Nora.Users.Infrastructure.Database\Nora.Users.Infrastructure.Database.csproj" />
+  </ItemGroup>
+
+</Project>
