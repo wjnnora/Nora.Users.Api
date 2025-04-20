@@ -16,8 +16,6 @@ public sealed class UserMapping : IEntityTypeConfiguration<User>
         builder.Property(p => p.DateOfBirth).HasColumnType("TIMESTAMP");
         builder.Property(p => p.CreatedAt).HasColumnType("TIMESTAMP");
 
-        builder.HasOne(p => p.Address)
-            .WithOne()
-            .HasForeignKey<Address>(p => p.UserId);
+        builder.HasOne(p => p.Address);
     }
 }
