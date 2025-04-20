@@ -17,7 +17,7 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddMediatR<CreateUserCommandHandler, GetUserByIdQueryHandler>();
 builder.Services.AddEntityFramework<AppDbContext>(builder.Configuration);
-builder.Services.AddRepositories<OrderRepository>();
+builder.Services.AddRepositories<UserRepository>();
 builder.Services.AddAutoMapper<UserProfile>();
 
 var app = builder.Build();
