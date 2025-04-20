@@ -23,7 +23,6 @@ namespace Nora.Users.Infrastructure.Database.Migrations
                     State = table.Column<string>(type: "CHAR(2)", nullable: true),
                     ZipCode = table.Column<string>(type: "VARCHAR(10)", nullable: true),
                     Country = table.Column<string>(type: "VARCHAR(100)", nullable: true),
-                    UserId = table.Column<int>(type: "integer", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "TIMESTAMP", nullable: false)
                 },
                 constraints: table =>
@@ -41,7 +40,6 @@ namespace Nora.Users.Infrastructure.Database.Migrations
                     LastName = table.Column<string>(type: "VARCHAR(100)", nullable: true),
                     DateOfBirth = table.Column<DateTime>(type: "TIMESTAMP", nullable: false),
                     AddressId = table.Column<int>(type: "integer", nullable: false),
-                    AddressId1 = table.Column<int>(type: "integer", nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "TIMESTAMP", nullable: false)
                 },
                 constraints: table =>
@@ -53,23 +51,12 @@ namespace Nora.Users.Infrastructure.Database.Migrations
                         principalTable: "Address",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_User_Address_AddressId1",
-                        column: x => x.AddressId1,
-                        principalTable: "Address",
-                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_User_AddressId",
                 table: "User",
-                column: "AddressId",
-                unique: true);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_User_AddressId1",
-                table: "User",
-                column: "AddressId1");
+                column: "AddressId");
         }
 
         /// <inheritdoc />

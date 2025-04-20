@@ -17,9 +17,5 @@ public sealed class AddressMapping : IEntityTypeConfiguration<Address>
         builder.Property(p => p.ZipCode).HasColumnType("VARCHAR(10)");
         builder.Property(p => p.Country).HasColumnType("VARCHAR(100)");
         builder.Property(p => p.CreatedAt).HasColumnType("TIMESTAMP");
-
-        builder.HasOne(p => p.User)
-            .WithOne()
-            .HasForeignKey<User>(p => p.AddressId);
     }
 }

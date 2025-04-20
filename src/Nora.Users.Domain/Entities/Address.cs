@@ -8,9 +8,7 @@ public class Address : Entity<int>
     public string City { get; private set; }
     public string State { get; private set; }
     public string ZipCode { get; private set; }
-    public string Country { get; private set; }
-    public int UserId { get; private set; }
-    public virtual User User { get; private set; }
+    public string Country { get; private set; }    
 
     private Address() { }
 

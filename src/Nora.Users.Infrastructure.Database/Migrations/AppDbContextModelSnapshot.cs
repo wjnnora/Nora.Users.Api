@@ -45,9 +45,6 @@ namespace Nora.Users.Infrastructure.Database.Migrations
                     b.Property<string>("Street")
                         .HasColumnType("VARCHAR(250)");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("integer");
-
                     b.Property<string>("ZipCode")
                         .HasColumnType("VARCHAR(10)");
 
@@ -67,9 +64,6 @@ namespace Nora.Users.Infrastructure.Database.Migrations
                     b.Property<int>("AddressId")
                         .HasColumnType("integer");
 
-                    b.Property<int?>("AddressId1")
-                        .HasColumnType("integer");
-
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("TIMESTAMP");
 
@@ -84,32 +78,20 @@ namespace Nora.Users.Infrastructure.Database.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AddressId")
-                        .IsUnique();
-
-                    b.HasIndex("AddressId1");
+                    b.HasIndex("AddressId");
 
                     b.ToTable("User", (string)null);
                 });
 
             modelBuilder.Entity("Nora.Users.Domain.Entities.User", b =>
                 {
-                    b.HasOne("Nora.Users.Domain.Entities.Address", null)
-                        .WithOne("User")
-                        .HasForeignKey("Nora.Users.Domain.Entities.User", "AddressId")
+                    b.HasOne("Nora.Users.Domain.Entities.Address", "Address")
+                        .WithMany()
+                        .HasForeignKey("AddressId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Nora.Users.Domain.Entities.Address", "Address")
-                        .WithMany()
-                        .HasForeignKey("AddressId1");
-
                     b.Navigation("Address");
-                });
-
-            modelBuilder.Entity("Nora.Users.Domain.Entities.Address", b =>
-                {
-                    b.Navigation("User");
                 });
 #pragma warning restore 612, 618
         }
