@@ -53,9 +53,6 @@ namespace Nora.Users.Infrastructure.Database.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId")
-                        .IsUnique();
-
                     b.ToTable("Address", (string)null);
                 });
 
@@ -68,6 +65,9 @@ namespace Nora.Users.Infrastructure.Database.Migrations
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<int>("AddressId")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("AddressId1")
                         .HasColumnType("integer");
 
                     b.Property<DateTime>("CreatedAt")
@@ -87,16 +87,9 @@ namespace Nora.Users.Infrastructure.Database.Migrations
                     b.HasIndex("AddressId")
                         .IsUnique();
 
-                    b.ToTable("User", (string)null);
-                });
+                    b.HasIndex("AddressId1");
 
-            modelBuilder.Entity("Nora.Users.Domain.Entities.Address", b =>
-                {
-                    b.HasOne("Nora.Users.Domain.Entities.User", null)
-                        .WithOne("Address")
-                        .HasForeignKey("Nora.Users.Domain.Entities.Address", "UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.ToTable("User", (string)null);
                 });
 
             modelBuilder.Entity("Nora.Users.Domain.Entities.User", b =>
@@ -106,16 +99,17 @@ namespace Nora.Users.Infrastructure.Database.Migrations
                         .HasForeignKey("Nora.Users.Domain.Entities.User", "AddressId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("Nora.Users.Domain.Entities.Address", "Address")
+                        .WithMany()
+                        .HasForeignKey("AddressId1");
+
+                    b.Navigation("Address");
                 });
 
             modelBuilder.Entity("Nora.Users.Domain.Entities.Address", b =>
                 {
                     b.Navigation("User");
-                });
-
-            modelBuilder.Entity("Nora.Users.Domain.Entities.User", b =>
-                {
-                    b.Navigation("Address");
                 });
 #pragma warning restore 612, 618
         }

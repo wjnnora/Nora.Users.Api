@@ -41,6 +41,7 @@ namespace Nora.Users.Infrastructure.Database.Migrations
                     LastName = table.Column<string>(type: "VARCHAR(100)", nullable: true),
                     DateOfBirth = table.Column<DateTime>(type: "TIMESTAMP", nullable: false),
                     AddressId = table.Column<int>(type: "integer", nullable: false),
+                    AddressId1 = table.Column<int>(type: "integer", nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "TIMESTAMP", nullable: false)
                 },
                 constraints: table =>
@@ -52,13 +53,12 @@ namespace Nora.Users.Infrastructure.Database.Migrations
                         principalTable: "Address",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_User_Address_AddressId1",
+                        column: x => x.AddressId1,
+                        principalTable: "Address",
+                        principalColumn: "Id");
                 });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Address_UserId",
-                table: "Address",
-                column: "UserId",
-                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_User_AddressId",
@@ -66,22 +66,15 @@ namespace Nora.Users.Infrastructure.Database.Migrations
                 column: "AddressId",
                 unique: true);
 
-            migrationBuilder.AddForeignKey(
-                name: "FK_Address_User_UserId",
-                table: "Address",
-                column: "UserId",
-                principalTable: "User",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Cascade);
+            migrationBuilder.CreateIndex(
+                name: "IX_User_AddressId1",
+                table: "User",
+                column: "AddressId1");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropForeignKey(
-                name: "FK_Address_User_UserId",
-                table: "Address");
-
             migrationBuilder.DropTable(
                 name: "User");
 
