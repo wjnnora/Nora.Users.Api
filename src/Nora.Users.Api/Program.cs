@@ -6,8 +6,11 @@ using Nora.Users.Domain.Command.Mappers;
 using Nora.Users.Domain.Query.Queries.v1.Users.GetById;
 using Nora.Users.Infrastructure.Database.EntityFramework;
 using Nora.Users.Infrastructure.Database.EntityFramework.Repositories;
-using Nora.Users.Api.Extensions;
 using Nora.Users.Api.Middlewares;
+using Nora.Core.Api.MediatR.Extensions;
+using Nora.Core.Api.AutoMapper.Extensions;
+using FluentValidation.AspNetCore;
+using FluentValidation;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,6 +22,8 @@ builder.Services.AddMediatR<CreateUserCommandHandler, GetUserByIdQueryHandler>()
 builder.Services.AddEntityFramework<AppDbContext>(builder.Configuration);
 builder.Services.AddRepositories<UserRepository>();
 builder.Services.AddAutoMapper<UserProfile>();
+builder.Services.AddValidatorsFromAssemblyContaining<CreateUserCommand>();
+builder.Services.AddFluentValidationAutoValidation().AddFluentValidationClientsideAdapters();
 
 var app = builder.Build();
 
